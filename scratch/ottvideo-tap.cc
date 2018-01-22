@@ -35,14 +35,14 @@
 #include "ns3/network-module.h"
 #include "ns3/csma-module.h"
 #include "ns3/applications-module.h"
-#include "ns3/netanim-module.h"
-#include "ns3/flow-monitor-module.h"
-#include "ns3/flow-monitor-helper.h"
+//#include "ns3/netanim-module.h"
+//#include "ns3/flow-monitor-module.h"
+//#include "ns3/flow-monitor-helper.h"
 #include "ns3/mobility-module.h"
 #include "ns3/internet-module.h"
 #include "ns3/ipv4-global-routing-helper.h"
 #include "ns3/tap-bridge-module.h"
-#include "ns3/animation-interface.h"
+//#include "ns3/animation-interface.h"
 #include "ns3/double.h"
 #include "ns3/simulator.h"
 #include "ns3/constant-position-mobility-model.h"
@@ -74,15 +74,11 @@ void changeLink(Ptr<CsmaChannel> channel)
   main (int argc, char *argv[])
   {
 	std::string mode = "ConfigureLocal";
-	std::string tapName = "thetap";
-	
 	//Config :: SetDefault ( "ns3 :: OnOffApplication PacketSize" , UintegerValue (210));
 	//Config :: SetDefault ( "ns3 :: OnOffApplication datarate" , StringValue ( "448kb / s" )); 
 	
 	//uint16_t port = 9;
 	uint32_t simTime = 3600.0;
-	uint32_t dataRate = 500000;
-	double delay = 2.0; //in ms  
 	double delayMax = 1000;
 	double delayMin = 1;
 	uint32_t dataRateMax = 100000000;
@@ -91,15 +87,10 @@ void changeLink(Ptr<CsmaChannel> channel)
 	double varTimeMin = 1;
 
     CommandLine cmd;
-    bool enableFlowMonitor = false;
     
     Address serverAddress;
     cmd.AddValue ("mode", "Mode setting of TapBridge", mode);
-    cmd.AddValue ("tapName", "Name of the OS tap device", tapName);
-    cmd.AddValue ( "EnableMonitor" , "Enable Flow Monitor" , enableFlowMonitor); 
     cmd.AddValue ("simTime", "SimulationTime", simTime);
-    cmd.AddValue ("dataRate", "data rate", dataRate);
-    cmd.AddValue ("delay", "delay in ms", delay);
     cmd.AddValue ("dataRateMax", "", dataRateMax);
     cmd.AddValue ("dataRateMin", "", dataRateMin);
     cmd.AddValue ("delayMax", "", delayMax);
@@ -234,9 +225,9 @@ void changeLink(Ptr<CsmaChannel> channel)
   
     
     // MONITORAGGIO DI FLUSSO         
-    Ptr<FlowMonitor> flowMonitor; 
-    FlowMonitorHelper flowmonHelper;
-    flowmonHelper.InstallAll ();
+  //  Ptr<FlowMonitor> flowMonitor; 
+  //  FlowMonitorHelper flowmonHelper;
+  //  flowmonHelper.InstallAll ();
 	
    // MOBILITY
     MobilityHelper mobility;
@@ -247,7 +238,7 @@ void changeLink(Ptr<CsmaChannel> channel)
     mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");    
     mobility.Install (csmaNodes);
 
-    AnimationInterface anim ("csma.xml");
+//    AnimationInterface anim ("csma.xml");
 
 	
 //    AsciiTraceHelper ascii;
