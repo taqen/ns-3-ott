@@ -250,10 +250,10 @@ void changeLink(Ptr<CsmaChannel> channel)
     AnimationInterface anim ("csma.xml");
 
 	
-    AsciiTraceHelper ascii;
-    csma.EnableAsciiAll (ascii.CreateFileStream ("simple-global-routing.tr"));
-    csma.EnablePcapAll ("simple-global-routing");
-    csma.EnablePcapAll ("tap-csma", false);
+//    AsciiTraceHelper ascii;
+//    csma.EnableAsciiAll (ascii.CreateFileStream ("simple-global-routing.tr"));
+//    csma.EnablePcapAll ("simple-global-routing");
+//    csma.EnablePcapAll ("tap-csma", false);
 
    //
    // Run the simulation for ten minutes to give the user time to play around
