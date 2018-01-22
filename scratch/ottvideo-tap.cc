@@ -57,14 +57,17 @@
   
   Ptr<UniformRandomVariable> rndDelay, rndDataRate, rndVarTime;
 
-void changeLink(Ptr<CsmaChannel> channel, uint32_t delay, uint32_t dataRate)
+void changeLink(Ptr<CsmaChannel> channel)
 {
+	double dataRate = rndDataRate->GetValue();
+	double delay = rndDelay->GetValue();
+	
 	channel->SetAttribute("DataRate", DataRateValue(DataRate(dataRate)));
 	channel->SetAttribute("Delay", TimeValue(MilliSeconds(delay)));
 
 	NS_LOG_UNCOND(Now().GetMilliSeconds() << "ms " << "link delay = " << delay << "ms link rate = " << dataRate << "bps");
 
-	Simulator::Schedule(MilliSeconds(rndVarTime->GetValue()), &changeLink, channel, rndDelay->GetValue(), rndDataRate->GetValue());
+	Simulator::Schedule(MilliSeconds(rndVarTime->GetValue()), &changeLink, channel);
 }
 
   int 
@@ -154,15 +157,13 @@ void changeLink(Ptr<CsmaChannel> channel, uint32_t delay, uint32_t dataRate)
     csma4.Add(n4);
   
     CsmaHelper csma;
-    csma.SetChannelAttribute ("DataRate", DataRateValue (DataRate(dataRate)));
-    csma.SetChannelAttribute ("Delay", TimeValue (MilliSeconds (delay)));
     csma.SetDeviceAttribute ("Mtu", UintegerValue (1024));
     NetDeviceContainer d0d5 = csma.Install (csma1);
     NetDeviceContainer d1d5 = csma.Install (csma2);
     NetDeviceContainer d0d4 = csma.Install (csma3);
     NetDeviceContainer d1d4 = csma.Install (csma4);
   
-    Simulator::Schedule(Seconds(0.0), &changeLink, d0d5.Get(0)->GetObject<CsmaNetDevice>()->GetChannel()->GetObject<CsmaChannel>(), delay, dataRate);
+    Simulator::Schedule(Seconds(0.0), &changeLink, d0d5.Get(0)->GetObject<CsmaNetDevice>()->GetChannel()->GetObject<CsmaChannel>());
 
     InternetStackHelper internet;
     //stack.Install (csmaNodes);
